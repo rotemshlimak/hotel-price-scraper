@@ -1,5 +1,5 @@
 {
-  "provider": "marriott", // e.g., 'marriott', 'hilton'
+  "provider": "marriott",
   "hotel_id": "",
   "check_in_date": "",
   "check_out_date": "",
