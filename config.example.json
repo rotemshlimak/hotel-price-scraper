@@ -45,6 +45,25 @@
         "address": "99 Muen-Ngoen Road, Tambon Patong, Phuket, Chang Wat Phuket 83150, Thailand",
         "secondary_text": "Muen-Ngoen Road, Pa Tong, Phuket, Thailand"
       }
+    },
+    {
+      "hotel_id": "W Budapest",
+      "property_id": "BUDWH",
+      "check_in_date": "2026-06-29",
+      "check_out_date": "2026-07-04",
+      "currency": "EUR",
+      "destination": {
+        "place_id": "",
+        "latitude": 47.5026,
+        "longitude": 19.0583,
+        "main_text": "W Budapest",
+        "destination": "W Budapest, Andrassy ut 25, Budapest, Hungary",
+        "city": "Budapest",
+        "country": "HU",
+        "country_name": "HU",
+        "address": "Andrassy ut 25, Budapest, Hungary 1061",
+        "secondary_text": "Budapest, Hungary"
+      }
     }
   ],
   "email": {

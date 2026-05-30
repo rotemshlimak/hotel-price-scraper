@@ -23,6 +23,7 @@ if (Test-Path $envFile) {
         if (-not $line -or $line.StartsWith("#") -or $line -notmatch "=") { continue }
         $key, $_, $value = $line -split "=", 3
         $key = $key.Trim()
+        if (-not $value) { continue }
         $value = $value.Trim().Trim('"').Trim("'")
         if ($key -in @("STAYAPI_API_KEY", "GMAIL_APP_PASSWORD") -and $value) {
             Write-Host "Setting $key..."
@@ -30,7 +31,7 @@ if (Test-Path $envFile) {
         }
     }
 } else {
-    Write-Host ".env not found — set STAYAPI_API_KEY and GMAIL_APP_PASSWORD manually:"
+    Write-Host ".env not found - set STAYAPI_API_KEY and GMAIL_APP_PASSWORD manually:"
     Write-Host "  gh secret set STAYAPI_API_KEY"
     Write-Host "  gh secret set GMAIL_APP_PASSWORD"
 }
