@@ -4,10 +4,12 @@ This project automates price retrieval from marriott.com for a specific hotel, d
 
 ## Configuration
 Edit `config.json` with your details:
+- `provider`: Hotel provider (e.g., 'marriott', 'hilton')
 - `hotel_id`: Hotel name (e.g., "JW Marriott Khao Lak Resort")
 - `check_in_date`, `check_out_date`: Dates in `YYYY-MM-DD` format
 - `corporate_code`: Your corporate code
 - `rooms`, `adults`, `children`: Number of rooms, adults, and children
+- `children_ages`: List of ages for each child
 - `email`: SMTP settings and recipient
 
 ## Usage
