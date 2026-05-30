@@ -1,0 +1,13 @@
+{
+  "hotel_id": "",
+  "check_in_date": "",
+  "check_out_date": "",
+  "corporate_code": "",
+  "email": {
+    "smtp_server": "",
+    "smtp_port": 587,
+    "username": "",
+    "password": "",
+    "recipient": ""
+  }
+}
