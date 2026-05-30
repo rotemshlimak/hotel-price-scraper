@@ -3,6 +3,9 @@
   "check_in_date": "",
   "check_out_date": "",
   "corporate_code": "",
+  "rooms": 1,
+  "adults": 3,
+  "children": 0,
   "email": {
     "smtp_server": "",
     "smtp_port": 587,
