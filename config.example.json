@@ -1,0 +1,60 @@
+{
+  "provider": "marriott",
+  "scraper_mode": "api",
+  "corporate_code": "MCO",
+  "alert_on_first_run": true,
+  "rooms": 1,
+  "adults": 2,
+  "children": 0,
+  "children_ages": [9],
+  "hotels": [
+    {
+      "hotel_id": "JW Marriott Khao Lak Resort & Spa",
+      "property_id": "HKTKL",
+      "check_in_date": "2027-04-14",
+      "check_out_date": "2027-04-18",
+      "destination": {
+        "place_id": "ChIJ5dIlcHXpUDAR1vOwPuNM2Jk",
+        "latitude": 8.7016421,
+        "longitude": 98.2405343,
+        "main_text": "JW Marriott Khao Lak Resort & Spa",
+        "destination": "JW Marriott Khao Lak Resort & Spa, Khao Lak, Takua Pa District, Phang Nga, Thailand",
+        "city": "Khao Lak",
+        "country": "TH",
+        "country_name": "TH",
+        "state_province": "พังงา",
+        "address": "41/12 Moo 3 Khuk Khak, Khao Lak, อำเภอตะกั่วป่า พังงา 82220, Thailand",
+        "secondary_text": "Khao Lak, Takua Pa District, Phang Nga, Thailand"
+      }
+    },
+    {
+      "hotel_id": "Phuket Marriott Resort & Spa, Merlin Beach",
+      "property_id": "HKTMB",
+      "check_in_date": "2027-04-23",
+      "check_out_date": "2027-04-27",
+      "destination": {
+        "place_id": "ChIJ29BYbjIlUDARL2zUokhvDmg",
+        "latitude": 7.8839133,
+        "longitude": 98.27257709999999,
+        "main_text": "Phuket Marriott Resort & Spa, Merlin Beach",
+        "destination": "Phuket Marriott Resort & Spa, Merlin Beach, Muen-Ngoen Road, Pa Tong, Phuket, Thailand",
+        "city": "Tambon Patong",
+        "country": "TH",
+        "country_name": "TH",
+        "state_province": "จ.ภูเก็ต",
+        "address": "99 Muen-Ngoen Road, Tambon Patong, Phuket, Chang Wat Phuket 83150, Thailand",
+        "secondary_text": "Muen-Ngoen Road, Pa Tong, Phuket, Thailand"
+      }
+    }
+  ],
+  "email": {
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "username": "YOUR_GMAIL@gmail.com",
+    "password": "",
+    "recipients": [
+      "recipient1@gmail.com",
+      "recipient2@gmail.com"
+    ]
+  }
+}

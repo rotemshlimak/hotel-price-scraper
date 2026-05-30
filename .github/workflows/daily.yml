@@ -1,0 +1,62 @@
+name: Daily price check
+
+on:
+  schedule:
+    # 06:00 UTC (GMT) every day
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: daily-price-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore price history
+        uses: actions/cache@v4
+        with:
+          path: logs/price_history.json
+          key: price-history-v1
+
+      - name: Prepare logs directory
+        run: mkdir -p logs
+
+      - name: Write config.json
+        env:
+          CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+        run: |
+          if [ -z "$CONFIG_JSON" ]; then
+            echo "Missing CONFIG_JSON secret. Add your config.json contents as a repository secret."
+            exit 1
+          fi
+          printf '%s' "$CONFIG_JSON" > config.json
+
+      - name: Run price check
+        env:
+          STAYAPI_API_KEY: ${{ secrets.STAYAPI_API_KEY }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python run_api.py
+
+      - name: Upload run log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-logs
+          path: logs/
+          if-no-files-found: ignore

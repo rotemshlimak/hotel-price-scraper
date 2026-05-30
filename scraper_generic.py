@@ -1,22 +1,38 @@
 import json
-from scraper import scrape_prices as scrape_marriott
-from scraper_hilton import scrape_prices_hilton
 
-CONFIG_PATH = 'config.json'
+from env_loader import load_dotenv
 
-def load_config():
-    with open(CONFIG_PATH, 'r') as f:
+CONFIG_PATH = "config.json"
+
+load_dotenv()
+
+
+def load_config_local():
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+
 def main():
-    config = load_config()
-    provider = config.get('provider', 'marriott').lower()
-    if provider == 'marriott':
-        scrape_marriott(config)
-    elif provider == 'hilton':
+    config = load_config_local()
+    provider = config.get("provider", "marriott").lower()
+    mode = config.get("scraper_mode", "browser").lower()
+
+    if provider == "marriott":
+        if mode == "api":
+            from scraper_api import scrape_prices_api
+
+            scrape_prices_api(config)
+        else:
+            from scraper import scrape_prices
+
+            scrape_prices(config)
+    elif provider == "hilton":
+        from scraper_hilton import scrape_prices_hilton
+
         scrape_prices_hilton(config)
     else:
         print(f"Provider '{provider}' not supported.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
