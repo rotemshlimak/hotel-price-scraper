@@ -2,8 +2,8 @@ name: Daily price check
 
 on:
   schedule:
-    # 06:00 UTC (GMT) every day
-    - cron: "0 6 * * *"
+    # 04:15 UTC = 07:15 Israel (IDT, UTC+3)
+    - cron: "15 4 * * *"
   workflow_dispatch:
 
 concurrency:

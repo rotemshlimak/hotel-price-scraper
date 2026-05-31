@@ -79,7 +79,7 @@ Logs: `logs/run_api.log`, price history: `logs/price_history.json`
 
 ## GitHub Actions (cloud, no PC required)
 
-Runs **daily at 06:00 UTC (GMT)** via [`.github/workflows/daily.yml`](.github/workflows/daily.yml). Also runnable manually from the Actions tab (**Run workflow**).
+Runs **daily at 07:15 Israel time (IDT)** — **04:15 UTC** — via [`.github/workflows/daily.yml`](.github/workflows/daily.yml). Also runnable manually from the Actions tab (**Run workflow**).
 
 ### One-time setup
 
@@ -111,7 +111,7 @@ Or use **Actions → Daily price check → Run workflow** in the GitHub UI.
 - **Price history** is stored in GitHub Actions cache (`price-history-v1`) between runs — not in the repo.
 - The **first Actions run** sends a baseline email (same as local first run). Your local `logs/price_history.json` is not uploaded automatically.
 - **2 StayAPI calls** per run (one per hotel in config), same as local.
-- Scheduled time is **06:00 UTC**. To change it, edit the `cron` line in `daily.yml`.
+- Scheduled time is **04:15 UTC** (**07:15 Israel, IDT**). In winter (IST, UTC+2) that is **06:15 Israel** unless you adjust the `cron` line in `daily.yml`.
 
 ## StayAPI credits
 
