@@ -91,6 +91,8 @@ Runs **daily at 07:15 Israel time (IDT)** — **04:15 UTC** — via [`.github/wo
 | `CONFIG_JSON` | Full contents of your local `config.json` |
 | `STAYAPI_API_KEY` | From `.env` |
 | `GMAIL_APP_PASSWORD` | From `.env` |
+| `ARBITRIP_STORAGE_STATE_B64` | Auto-set by `setup_github_secrets.ps1` after `arbitrip_login.py` |
+| `ARBITRIP_SEARCH_TOKEN` | Optional — from Arbitrip hotel URL |
 
 Or use the helper script (requires [GitHub CLI](https://cli.github.com/)):
 
@@ -110,8 +112,32 @@ Or use **Actions → Daily price check → Run workflow** in the GitHub UI.
 
 - **Price history** is stored in GitHub Actions cache (`price-history-v1`) between runs — not in the repo.
 - The **first Actions run** sends a baseline email (same as local first run). Your local `logs/price_history.json` is not uploaded automatically.
-- **2 StayAPI calls** per run (one per hotel in config), same as local.
+- **StayAPI**: 1 call per Marriott hotel in config.
+- **Arbitrip (HTZone)**: requires Playwright + a saved login session (see below).
 - Scheduled time is **04:15 UTC** (**07:15 Israel, IDT**). In winter (IST, UTC+2) that is **06:15 Israel** unless you adjust the `cron` line in `daily.yml`.
+
+### Arbitrip on GitHub Actions
+
+Arbitrip ([htzone.arbitrip.com](https://htzone.arbitrip.com/)) uses HTZone SSO — GHA runs headless Chromium with cookies exported from your PC.
+
+1. **Log in locally** and save session:
+   ```powershell
+   python scripts/arbitrip_login.py
+   ```
+2. **Push secrets** (includes base64 session if `logs/arbitrip_storage.json` exists):
+   ```powershell
+   .\scripts\setup_github_secrets.ps1
+   ```
+3. Set **`CONFIG_JSON`** with `"provider": "mixed"` and Arbitrip hotels using `"chain": "arbitrip"` (see `config.example.json`).
+
+| Secret | Purpose |
+|--------|---------|
+| `ARBITRIP_STORAGE_STATE_B64` | Playwright cookies/localStorage from login (refresh when session expires) |
+| `ARBITRIP_SEARCH_TOKEN` | Optional — `search_token` from hotel URL if rates fail without it |
+
+**Session expiry:** When Arbitrip runs fail with “redirected to HTZone login”, re-run `arbitrip_login.py` and `setup_github_secrets.ps1`.
+
+**If GHA IP is blocked:** HTZone/Cloudflare may reject datacenter IPs even with valid cookies. Use a [self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners) on your home network and set `runs-on: self-hosted` in `daily.yml`.
 
 ## StayAPI credits
 
