@@ -26,10 +26,6 @@ def main():
             from scraper import scrape_prices
 
             scrape_prices(config)
-    elif provider == "hilton":
-        from scraper_hilton import scrape_prices_hilton
-
-        scrape_prices_hilton(config)
     else:
         print(f"Provider '{provider}' not supported.")
 
