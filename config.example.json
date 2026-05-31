@@ -75,11 +75,11 @@
       "hotel_slug": "the-little-shore-khao-lak-by-katathani",
       "check_in_date": "2027-04-14",
       "check_out_date": "2027-04-18",
-      "currency": "THB",
+      "currency": "USD",
       "rooms": 1,
       "adults": 2,
       "private_travel": true,
-      "search_token": "PASTE_FROM_BROWSER_URL_OR_OMIT"
+      "booking_url": "https://htzone.arbitrip.com/hotel/the-little-shore-khao-lak-by-katathani/658eb11866f44b0744e1b1df?hotel_id=658eb11866f44b0744e1b1df&check_in=270414&check_out=270418&guests=2&rooms=1&private_travel=true&search_token=PASTE_FROM_BROWSER"
     }
   ],
   "email": {
