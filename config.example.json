@@ -1,5 +1,5 @@
 {
-  "provider": "marriott",
+  "provider": "mixed",
   "scraper_mode": "api",
   "corporate_code": "MCO",
   "alert_on_first_run": true,
@@ -9,6 +9,7 @@
   "children_ages": [9],
   "hotels": [
     {
+      "chain": "marriott",
       "hotel_id": "JW Marriott Khao Lak Resort & Spa",
       "property_id": "HKTKL",
       "check_in_date": "2027-04-14",
@@ -28,6 +29,7 @@
       }
     },
     {
+      "chain": "marriott",
       "hotel_id": "Phuket Marriott Resort & Spa, Merlin Beach",
       "property_id": "HKTMB",
       "check_in_date": "2027-04-23",
@@ -47,6 +49,7 @@
       }
     },
     {
+      "chain": "marriott",
       "hotel_id": "W Budapest",
       "property_id": "BUDWH",
       "check_in_date": "2026-06-29",
@@ -64,6 +67,19 @@
         "address": "Andrassy ut 25, Budapest, Hungary 1061",
         "secondary_text": "Budapest, Hungary"
       }
+    },
+    {
+      "chain": "arbitrip",
+      "hotel_id": "The Little Shore Khao Lak by Katathani",
+      "property_id": "658eb11866f44b0744e1b1df",
+      "hotel_slug": "the-little-shore-khao-lak-by-katathani",
+      "check_in_date": "2027-04-14",
+      "check_out_date": "2027-04-18",
+      "currency": "USD",
+      "rooms": 1,
+      "adults": 2,
+      "private_travel": true,
+      "booking_url": "https://htzone.arbitrip.com/hotel/the-little-shore-khao-lak-by-katathani/658eb11866f44b0744e1b1df?hotel_id=658eb11866f44b0744e1b1df&check_in=270414&check_out=270418&guests=2&rooms=1&private_travel=true&search_token=PASTE_FROM_BROWSER"
     }
   ],
   "email": {

@@ -13,7 +13,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -26,7 +26,9 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium --with-deps
 
       - name: Restore price history
         uses: actions/cache@v4
@@ -47,10 +49,23 @@ jobs:
           fi
           printf '%s' "$CONFIG_JSON" > config.json
 
+      - name: Restore Arbitrip browser session
+        env:
+          ARBITRIP_STORAGE_STATE_B64: ${{ secrets.ARBITRIP_STORAGE_STATE_B64 }}
+        run: |
+          if [ -n "$ARBITRIP_STORAGE_STATE_B64" ]; then
+            echo "$ARBITRIP_STORAGE_STATE_B64" | base64 -d > logs/arbitrip_storage.json
+            echo "Arbitrip session restored ($(wc -c < logs/arbitrip_storage.json) bytes)"
+          else
+            echo "No ARBITRIP_STORAGE_STATE_B64 secret — Arbitrip hotels will fail until session is configured."
+          fi
+
       - name: Run price check
         env:
           STAYAPI_API_KEY: ${{ secrets.STAYAPI_API_KEY }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          ARBITRIP_STORAGE_STATE: logs/arbitrip_storage.json
+          ARBITRIP_SEARCH_TOKEN: ${{ secrets.ARBITRIP_SEARCH_TOKEN }}
         run: python run_api.py
 
       - name: Upload run log on failure

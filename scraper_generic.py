@@ -17,6 +17,16 @@ def main():
     provider = config.get("provider", "marriott").lower()
     mode = config.get("scraper_mode", "browser").lower()
 
+    if provider == "mixed":
+        from scraper_mixed import scrape_prices_mixed
+
+        scrape_prices_mixed(config)
+        return
+    if provider == "arbitrip":
+        from scraper_arbitrip import scrape_prices_arbitrip
+
+        scrape_prices_arbitrip(config)
+        return
     if provider == "marriott":
         if mode == "api":
             from scraper_api import scrape_prices_api
