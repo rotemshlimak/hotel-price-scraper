@@ -25,7 +25,7 @@ if (Test-Path $envFile) {
         $key = $key.Trim()
         if (-not $value) { continue }
         $value = $value.Trim().Trim('"').Trim("'")
-        if ($key -in @("STAYAPI_API_KEY", "GMAIL_APP_PASSWORD", "ARBITRIP_SEARCH_TOKEN") -and $value) {
+        if ($key -in @("STAYAPI_API_KEY", "GMAIL_APP_PASSWORD") -and $value) {
             Write-Host "Setting $key..."
             $value | gh secret set $key
         }
@@ -34,18 +34,6 @@ if (Test-Path $envFile) {
     Write-Host ".env not found - set STAYAPI_API_KEY and GMAIL_APP_PASSWORD manually:"
     Write-Host "  gh secret set STAYAPI_API_KEY"
     Write-Host "  gh secret set GMAIL_APP_PASSWORD"
-}
-
-$storage = Join-Path $Root "logs/arbitrip_storage.json"
-if (Test-Path $storage) {
-    Write-Host "Setting ARBITRIP_STORAGE_STATE_B64 from logs/arbitrip_storage.json..."
-    $bytes = [System.IO.File]::ReadAllBytes($storage)
-    $b64 = [Convert]::ToBase64String($bytes)
-    $b64 | gh secret set ARBITRIP_STORAGE_STATE_B64
-    Write-Host "  ($(($bytes).Length) bytes encoded)"
-} else {
-    Write-Host "logs/arbitrip_storage.json not found — skip Arbitrip on GHA until you run:"
-    Write-Host "  python scripts/arbitrip_login.py"
 }
 
 Write-Host ""
