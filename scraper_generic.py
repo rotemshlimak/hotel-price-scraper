@@ -17,6 +17,12 @@ def main():
     provider = config.get("provider", "marriott").lower()
     mode = config.get("scraper_mode", "browser").lower()
 
+    if provider in ("marriott", "mixed", "hilton") and mode == "api":
+        from run_api import scrape_prices
+
+        scrape_prices(config)
+        return
+
     if provider == "marriott":
         if mode == "api":
             from scraper_api import scrape_prices_api
@@ -30,6 +36,8 @@ def main():
         from scraper_hilton import scrape_prices_hilton
 
         scrape_prices_hilton(config)
+    elif provider == "mixed":
+        print("Mixed provider requires scraper_mode: api")
     else:
         print(f"Provider '{provider}' not supported.")
 

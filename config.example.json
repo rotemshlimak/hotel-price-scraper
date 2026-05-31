@@ -1,5 +1,5 @@
 {
-  "provider": "marriott",
+  "provider": "mixed",
   "scraper_mode": "api",
   "corporate_code": "MCO",
   "alert_on_first_run": true,
@@ -9,6 +9,7 @@
   "children_ages": [9],
   "hotels": [
     {
+      "chain": "marriott",
       "hotel_id": "JW Marriott Khao Lak Resort & Spa",
       "property_id": "HKTKL",
       "check_in_date": "2027-04-14",
@@ -28,6 +29,7 @@
       }
     },
     {
+      "chain": "marriott",
       "hotel_id": "Phuket Marriott Resort & Spa, Merlin Beach",
       "property_id": "HKTMB",
       "check_in_date": "2027-04-23",
@@ -47,6 +49,7 @@
       }
     },
     {
+      "chain": "marriott",
       "hotel_id": "W Budapest",
       "property_id": "BUDWH",
       "check_in_date": "2026-06-29",
@@ -64,6 +67,15 @@
         "address": "Andrassy ut 25, Budapest, Hungary 1061",
         "secondary_text": "Budapest, Hungary"
       }
+    },
+    {
+      "chain": "hilton",
+      "hotel_id": "Hilton Athens",
+      "property_id": "ATHADQQ",
+      "check_in_date": "2027-02-03",
+      "check_out_date": "2027-02-07",
+      "currency": "EUR",
+      "corporate_code": "Microsoft"
     }
   ],
   "email": {

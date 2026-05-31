@@ -240,6 +240,15 @@ def load_config():
         return json.load(f)
 
 
+def _report_label(results: list[dict]) -> str:
+    chains = {r.get("source", "") for r in results}
+    if chains == {"stayapi"}:
+        return "Marriott"
+    if chains == {"hilton_graphql"}:
+        return "Hilton"
+    return "Hotel"
+
+
 def format_results_email(
     results: list[dict], config: dict, history: dict | None = None
 ) -> tuple[str, str, str]:
@@ -247,9 +256,10 @@ def format_results_email(
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     corp = config.get("corporate_code", "")
-    subject = f"Marriott prices ({len(results)} hotels) — {now}"
+    label = _report_label(results)
+    subject = f"{label} prices ({len(results)} hotels) — {now}"
 
-    lines = [f"Marriott price report — {now}", ""]
+    lines = [f"{label} price report — {now}", ""]
     html_hotels = []
 
     source = results[0].get("source") if results else None
@@ -261,6 +271,10 @@ def format_results_email(
         else:
             meta_parts.append("StayAPI · public/member rates")
             lines.append("Source: StayAPI (public/member rates)")
+        lines.append("")
+    elif source == "hilton_graphql":
+        meta_parts.append("Hilton GraphQL")
+        lines.append("Source: Hilton GraphQL")
         lines.append("")
     if corp:
         lines.append(f"Corporate code: {corp}")
@@ -313,7 +327,7 @@ def format_results_email(
         meta_html = f'<div style="{_STYLE["meta"]}">{_e(" · ".join(meta_parts))}</div>'
 
     html_body = _html_document(
-        "Marriott Price Report",
+        f"{label} Price Report",
         now,
         meta_html + "".join(html_hotels),
     )
@@ -341,7 +355,8 @@ def format_drop_alert_email(drops: list[dict], config: dict) -> tuple[str, str, 
         if new_atl:
             subject += f" ({new_atl} new all-time low)"
 
-    lines = [f"Marriott price drop alert — {now}", ""]
+    label = _report_label([d for d in drops]) if drops else "Hotel"
+    lines = [f"{label} price drop alert — {now}", ""]
     html_parts = []
     if corp:
         lines.append(f"Corporate code: {corp}")

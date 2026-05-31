@@ -1,0 +1,48 @@
+query hotel_shopAvailOptions_shopPropAvail($arrivalDate: String!, $ctyhocn: String!, $departureDate: String!, $language: String!, $guestLocationCountry: String, $numAdults: Int!, $numChildren: Int!, $numRooms: Int!, $displayCurrency: String, $guestId: BigInt, $specialRates: ShopSpecialRateInput, $rateCategoryTokens: [String], $selectedRoomRateCodes: [ShopRoomRateCodeInput!], $ratePlanCodes: [String], $pnd: String, $offerId: BigInt, $cacheId: String!, $knownGuest: Boolean, $modifyingReservation: Boolean, $currentlySelectedRoomTypeCode: String, $currentlySelectedRatePlanCode: String, $childAges: [Int], $adjoiningRoomStay: Boolean, $programAccountId: BigInt, $roomTypeSortInput: [ShopRoomTypeSortInput!], $includeCUCEligibility: Boolean) {
+  hotel(ctyhocn: $ctyhocn, language: $language) {
+    ctyhocn
+    shopAvailOptions(input: {offerId: $offerId, pnd: $pnd}) {
+      maxNumChildren
+      altCorporateAccount {
+        corporateId
+        name
+      }
+    }
+    shopAvail(
+      cacheId: $cacheId
+      input: {guestLocationCountry: $guestLocationCountry, arrivalDate: $arrivalDate, departureDate: $departureDate, displayCurrency: $displayCurrency, numAdults: $numAdults, numChildren: $numChildren, numRooms: $numRooms, guestId: $guestId, specialRates: $specialRates, knownGuest: $knownGuest, modifyingReservation: $modifyingReservation, childAges: $childAges, adjoiningRoomStay: $adjoiningRoomStay, programAccountId: $programAccountId, includeCUCEligibility: $includeCUCEligibility, includeGuests: true}
+    ) {
+      statusCode
+      currencyCode
+      roomTypes {
+        roomTypeCode
+        roomTypeName
+        numBeds
+        quickBookRate {
+          rateAmount
+          ratePlanCode
+          fullAmountAfterTax: amountAfterTaxFmt
+          ratePlan {
+            ratePlanName
+            specialRateType
+          }
+          pointDetails {
+            pointsRateFmt
+          }
+        }
+        moreRatesFromRate {
+          rateAmount
+          ratePlanCode
+          fullAmountAfterTax: amountAfterTaxFmt
+          ratePlan {
+            ratePlanName
+            specialRateType
+          }
+        }
+        redemptionRoomRates {
+          ratePlanCode
+        }
+      }
+    }
+  }
+}
