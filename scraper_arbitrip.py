@@ -264,8 +264,15 @@ def _open_hotel_page(page, url: str) -> None:
 
     for attempt in range(2):
         page.set_extra_http_headers({"Referer": TRIPZONE_HOME})
-        page.goto(url, wait_until="networkidle", timeout=120000)
-        page.wait_for_timeout(5000)
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=120000)
+            page.wait_for_load_state("load", timeout=60000)
+        except Exception:
+            if attempt == 1:
+                raise
+            _warm_session(page)
+            continue
+        page.wait_for_timeout(8000)
         if _is_hotel_page_url(page.url):
             return
         if attempt == 0:
