@@ -2,9 +2,12 @@ name: Daily price check
 
 on:
   schedule:
-    # 04:15 UTC = 07:15 Israel (IDT, UTC+3)
+    # Daily 04:15 UTC = 07:15 Israel (IDT). Must live on default branch (master).
     - cron: "15 4 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: daily-price-check
